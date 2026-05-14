@@ -2,6 +2,7 @@ var express = require('express');
 const bodyParser = require('body-parser');
 var passport = require('passport');
 var User = require('../models/user');
+var authenticate = require('../authenticate');
 
 var router = express.Router();
 router.use(bodyParser.json());
@@ -11,36 +12,58 @@ router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', async (req, res) => {
+
   try {
+
     const user = await User.register(
       new User({ username: req.body.username }),
       req.body.password
     );
 
-    req.login(user, (err) => {
+    res.status(200).json({
+      success: true,
+      status: 'Registration Successful!'
+    });
+
+  }
+  catch(err) {
+
+    res.status(500).json({
+      success: false,
+      err: err.message
+    });
+
+  }
+});
+
+router.post('/login', async (req, res, next) => {
+
+  passport.authenticate('local', { session: false },
+    (err, user, info) => {
+
       if (err) {
         return next(err);
       }
 
+      if (!user) {
+        return res.status(401).json({
+          success: false,
+          status: 'Login unsuccessful!'
+        });
+      }
+
+      const token = authenticate.getToken({
+        _id: user._id
+      });
+
       return res.status(200).json({
         success: true,
-        status: 'Registration Successful!'
+        token: token,
+        status: 'You are successfully logged in!'
       });
-    });
-  }
-  catch (err) {
-    console.log("Register error:", err);
 
-    return res.status(500).json({
-      success: false,
-      err: err.message
-    });
-  }
-});
-
-router.post('/login', passport.authenticate('local'), (req, res) => {
-  res.status(200).json({success: true, status: 'You are successfully logged in!'});
+    })(req, res, next);
 });
 
 router.get('/logout', (req, res, next) => {
