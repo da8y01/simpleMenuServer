@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', async (req, res, next) => {
 
   try {
 
@@ -20,6 +20,13 @@ router.post('/signup', async (req, res) => {
       new User({ username: req.body.username }),
       req.body.password
     );
+
+    if (req.body.firstname)
+      user.firstname = req.body.firstname;
+    if (req.body.lastname)
+      user.lastname = req.body.lastname;
+
+    await user.save();
 
     res.status(200).json({
       success: true,
