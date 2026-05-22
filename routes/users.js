@@ -3,17 +3,18 @@ const bodyParser = require('body-parser');
 var passport = require('passport');
 var User = require('../models/user');
 var authenticate = require('../authenticate');
+const cors = require('./cors');
 
 var router = express.Router();
 router.use(bodyParser.json());
 
 /* GET users listing. */
-router.get('/', authenticate.verifyUser, authenticate.verifyAdmin, async function (req, res, next) {
+router.get('/', cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, async function (req, res, next) {
   var users = await User.find({});
   return res.status(200).json(users);
 });
 
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', cors.corsWithOptions, async (req, res, next) => {
 
   try {
 
@@ -45,7 +46,7 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', cors.corsWithOptions, async (req, res, next) => {
 
   passport.authenticate('local', { session: false },
     (err, user, info) => {
