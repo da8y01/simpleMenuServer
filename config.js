@@ -1,5 +1,15 @@
 module.exports = {
-    'secretKey': '12345-67890-09876-54321',
-    'mongoUrl1' : 'mongodb://localhost:27017/simpleMenu',
-    'mongoUrl' : 'mongodb+srv://user:password@cluster0.rddsa6m.mongodb.net/?appName=Cluster0&dbName=simpleMenu'
+    'secretKey': process.env.SECRET_KEY,
+    'mongoUrl' : process.env.MONGO_URL,
+    'google': {
+        clientId: process.env.G_CLIENT_ID,
+        clientSecret: process.env.G_CLIENT_SECRET,
+        authorizationURL: process.env.G_AUTH_URL,
+        tokenURL: process.env.G_TOKEN_URL,
+        callbackURL: process.env.G_CB_URL
+    },
+    'facebook': {
+        clientId: process.env.FB_CLIENT_ID,
+        clientSecret: process.env.FB_CLIENT_SECRET
+    }
 }
