@@ -64,17 +64,11 @@ favoriteRouter.route('/:dishId')
     try {
         const favorite = await Favorite.findOne({ user: req.user._id });
         if (!favorite) {
-            return res.json({
-                exists: false,
-                favorites: null
-            });
+            return res.json({ exists: false, favorites: null });
         }
 
         const exists = favorite.dishes.some(dish => dish.toString() === req.params.dishId);
-        res.json({
-            exists,
-            favorites: favorite
-        });
+        res.json({ exists, favorites: favorite });
     } catch (err) {
         next(err);
     }
