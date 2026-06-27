@@ -14,7 +14,6 @@ favoriteRouter.route('/')
     try {
         const favorite = await Favorite.findOne({ user: req.user._id })
             .populate('user dishes');
-
         res.status(200).json(favorite);
     } catch (err) {
         next(err);
@@ -43,7 +42,7 @@ favoriteRouter.route('/')
             await favorite.save();
         }
 
-        favorite = await Favorite.findById(favorite._id)
+        favorite = await Favorite.findById(favorite._id);
         res.status(200).json(favorite);
     } catch (err) {
         next(err);
@@ -89,7 +88,8 @@ favoriteRouter.route('/:dishId')
             }
         }
 
-        favorite = await Favorite.findById(favorite._id);
+        favorite = await Favorite.findById(favorite._id)
+            .populate('user dishes');
         res.status(200).json(favorite);
     } catch (err) {
         next(err);
@@ -101,7 +101,7 @@ favoriteRouter.route('/:dishId')
             { user: req.user._id },
             { $pull: { dishes: req.params.dishId } },
             { new: true }
-        );
+        ).populate('user dishes');
 
         if (!favorite) {
             return res.status(404).json({
