@@ -42,7 +42,8 @@ favoriteRouter.route('/')
             await favorite.save();
         }
 
-        favorite = await Favorite.findById(favorite._id);
+        favorite = await Favorite.findById(favorite._id)
+            .populate('user dishes');
         res.status(200).json(favorite);
     } catch (err) {
         next(err);
@@ -63,11 +64,11 @@ favoriteRouter.route('/:dishId')
     try {
         const favorite = await Favorite.findOne({ user: req.user._id });
         if (!favorite) {
-            return res.json({ exists: false, favorites: null });
+            return res.status(200).json({ exists: false, favorites: favorite });
         }
 
         const exists = favorite.dishes.some(dish => dish.toString() === req.params.dishId);
-        res.json({ exists, favorites: favorite });
+        res.status(200).json({ exists, favorites: favorite });
     } catch (err) {
         next(err);
     }
@@ -104,9 +105,7 @@ favoriteRouter.route('/:dishId')
         ).populate('user dishes');
 
         if (!favorite) {
-            return res.status(404).json({
-                error: 'Favorite not found'
-            });
+            return res.status(404).json({error: 'Favorite not found'});
         }
 
         res.status(200).json(favorite);
