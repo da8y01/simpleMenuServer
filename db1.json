@@ -11,7 +11,7 @@
       "comments": [
         {
           "rating": 5,
-          "comment": "Imagine all the eatables, living in conFusion!",
+          "comment": "Imagine all the eatables, living in simpleMenu!",
           "author": "John Lemon",
           "date": "2012-10-16T17:57:28.556094Z"
         },
@@ -52,7 +52,7 @@
       "comments": [
         {
           "rating": 5,
-          "comment": "Imagine all the eatables, living in conFusion!",
+          "comment": "Imagine all the eatables, living in simpleMenu!",
           "author": "John Lemon",
           "date": "2012-10-16T17:57:28.556094Z"
         },
@@ -89,11 +89,11 @@
       "label": "New",
       "price": "1.99",
       "featured": false,
-      "description": "A quintessential ConFusion experience, is it a vada or is it a donut?",
+      "description": "A quintessential SimpleMenu experience, is it a vada or is it a donut?",
       "comments": [
         {
           "rating": 5,
-          "comment": "Imagine all the eatables, living in conFusion!",
+          "comment": "Imagine all the eatables, living in simpleMenu!",
           "author": "John Lemon",
           "date": "2012-10-16T17:57:28.556094Z"
         },
@@ -134,7 +134,7 @@
       "comments": [
         {
           "rating": 5,
-          "comment": "Imagine all the eatables, living in conFusion!",
+          "comment": "Imagine all the eatables, living in simpleMenu!",
           "author": "John Lemon",
           "date": "2012-10-16T17:57:28.556094Z"
         },
