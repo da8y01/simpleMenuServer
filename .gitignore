@@ -1,2 +1,11 @@
-node_modules
+# Dependency directories
+node_modules/
+
+# dotenv environment variable files
 .env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
