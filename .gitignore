@@ -1,2 +1,18 @@
-node_modules
+# Dependency directories
+node_modules/
+
+# dotenv environment variable files
 .env
+.env.*
+!.env.example
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
